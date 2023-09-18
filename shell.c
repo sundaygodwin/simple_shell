@@ -47,8 +47,13 @@ int main(int ac, char *av[])
 	(void)ac;
 	name = av[0];
 	printf("($) ");
-	while (getline(&line, &i, stdin) != -1)
+	while (1)
 	{
+		if (getline(&line, &i, stdin) == -1)
+		{
+			printf("\n");
+			break;
+		}
 		args = tokenStore(line, dls);
 		if (args == NULL)
 			return (1);

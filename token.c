@@ -15,7 +15,7 @@ char **tokenStore(char *line, const char *dls)
 	tokens = strtok(line, dls);
 	if (tokens == NULL)
 	{
-		perror("Token error");
+		perror("Error");
 		return (NULL);
 	}
 	count = 0;
