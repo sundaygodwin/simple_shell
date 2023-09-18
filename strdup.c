@@ -2,7 +2,7 @@
 /**
  * _strdup - creates a duplicate of a string
  * @str: string
- * 
+ *
  * Return: pointer to a duplicated string
  */
 char *_strdup(char *str)
