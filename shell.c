@@ -3,26 +3,24 @@
  * executeCommand - executes the command
  * @command: string or word which is a command in shell
  * @name: name of program
+ * @args: array of command and arguments
  *
  * Return: 0 (success) or 1(fail)
  */
-int executeCommand(char *command, char *name)
+int execute(char *command, char *name, char *args[])
 {
-	char *argv[2], *envp[] = {NULL};
 	pid_t child_pid;
 	int status;
 
 	child_pid = fork();
 	if (child_pid == -1)
 	{
-		perror("Fork error");
+		perror("Error");
 		return (1);
 	}
 	if (child_pid == 0)
 	{
-		argv[0] = command;
-		argv[1] = NULL;
-		if (execve(command, argv, envp) == -1)
+		if (execve(command, args, environ) == -1)
 		{
 			perror(name);
 			exit(3);
@@ -40,23 +38,29 @@ int executeCommand(char *command, char *name)
  */
 int main(int ac, char *av[])
 {
-	char *line = NULL, *tokens, *name;
+	char *line = NULL, *name, *command;
 	size_t i = 0;
-	const char *dls = {"\n"};
+	const char *dls = {" \n"};
+	char **args;
+	int idx;
 
 	(void)ac;
 	name = av[0];
 	printf("($) ");
 	while (getline(&line, &i, stdin) != -1)
 	{
-		tokens = strtok(line, dls);
-		if (tokens == NULL)
-		{
-			perror("Token error");
+		args = tokenStore(line, dls);
+		if (args == NULL)
 			return (1);
+		command = args[0];
+		execute(command, name, args);
+		for (idx = 0; args[idx] != NULL; idx++)
+		{
+			free(args[idx]);
 		}
-		executeCommand(tokens, name);
+		free(args);
 		printf("($) ");
 	}
+	free(line);
 	return (0);
 }

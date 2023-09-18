@@ -6,9 +6,13 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <string.h>
+/* extern variable */
+extern char **environ;
 
-
-
+/* Functions */
+int _strlen(char *s);
+char *_strdup(char *str);
+char **tokenStore(char *line, const char *dls);
 
 
 #endif
