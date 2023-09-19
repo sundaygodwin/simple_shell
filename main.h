@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 #include <string.h>
 /* extern variable */
 extern char **environ;
@@ -12,6 +13,10 @@ extern char **environ;
 /* Functions */
 int _strlen(char *s);
 char *_strdup(char *str);
+char *_strchr(char *str, char c);
+char *_strcat(char *dest, const char *src);
+char *_strcpy(char *dest, char *src);
+char *find_command(char *command);
 char **tokenStore(char *line, const char *dls);
 
 

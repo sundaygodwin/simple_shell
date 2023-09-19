@@ -1,6 +1,6 @@
 #include "main.h"
 /**
- * executeCommand - executes the command
+ * execute - executes the command
  * @command: string or word which is a command in shell
  * @name: name of program
  * @args: array of command and arguments
@@ -38,7 +38,7 @@ int execute(char *command, char *name, char *args[])
  */
 int main(int ac, char *av[])
 {
-	char *line = NULL, *name, *command;
+	char *line = NULL, *name, *command, *fullPath;
 	size_t i = 0;
 	const char *dls = {" \n"};
 	char **args;
@@ -58,7 +58,16 @@ int main(int ac, char *av[])
 		if (args == NULL)
 			return (1);
 		command = args[0];
-		execute(command, name, args);
+		if (_strchr(command, '/'))
+			execute(command, name, args);
+		else
+		{
+			fullPath = find_command(command);
+			if (fullPath != NULL)
+				execute(fullPath, name, args);
+			else
+				perror("Command not found");
+		}
 		for (idx = 0; args[idx] != NULL; idx++)
 		{
 			free(args[idx]);
