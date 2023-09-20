@@ -1,8 +1,8 @@
-## 0x16. C - Simple Shell
-# Description
+# 0x16. C - Simple Shell
+## Description
 This project is based off a challenge to built a functioning shell that can perform commands, execute files and meets the requirements stipulated by ALX course challenge.
 Below will be the tasks given to us to achieve this projects implementation
-# Tasks
+## Tasks
 Group members: Ruhinda Roderick and Sunday Godwin
 
 0. Pass the betty checks
