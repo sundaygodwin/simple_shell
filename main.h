@@ -16,6 +16,7 @@ char *_strdup(char *str);
 char *_strchr(char *str, char c);
 char *_strcat(char *dest, const char *src);
 char *_strcpy(char *dest, char *src);
+int _strcmp(char *str, const char *s);
 char *find_command(char *command);
 char **tokenStore(char *line, const char *dls);
 

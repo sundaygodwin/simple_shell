@@ -60,13 +60,15 @@ int main(int ac, char *av[])
 		command = args[0];
 		if (_strchr(command, '/'))
 			execute(command, name, args);
+		else if (_strcmp(command, "exit") == 0)
+			break;
 		else
 		{
 			fullPath = find_command(command);
 			if (fullPath != NULL)
 				execute(fullPath, name, args);
 			else
-				perror("Command not found");
+				perror(name);
 		}
 		for (idx = 0; args[idx] != NULL; idx++)
 		{

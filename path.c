@@ -14,7 +14,7 @@ char *find_command(char *command)
 
 	if (path == NULL)
 	{
-		perror("PATH not set");
+		perror("PATH Error");
 		return (NULL);
 	}
 	copy = _strdup(path);
