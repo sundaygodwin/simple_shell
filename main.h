@@ -23,6 +23,11 @@ char *_strcpy(char *dest, char *src);
 int _strcmp(char *str, const char *s);
 char *find_command(char *command);
 char **tokenStore(char *line, const char *dls);
+<<<<<<< HEAD
 
+=======
+void check(char *command, char *name, char *args[]);
+void execute(char *command, char *name, char *args[]);
+>>>>>>> 666e9a2adfcbf18be2c42be0e0759fe1a63be59c
 
 #endif
