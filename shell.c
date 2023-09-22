@@ -1,40 +1,44 @@
 #include "main.h"
-/**
- * main - main function
- * @ac: argument count
- * @av: argument
- * Return: 0
- */
-int main(int ac, char *av[])
-{
-	char *line = NULL, *name, *command;
-	size_t i = 0;
-	const char *dls = {" \n"};
-	char **args;
-	int idx;
 
-	(void)ac;
-	name = av[0];
-	printf("($) ");
-	while (1)
+/**
+ * main - entry point of main
+ * @ac: arg count
+ * @av: arg vector
+ *
+ * Return: 0 on success, 1 on error
+ */
+int main(int ac, char **av)
+{
+	info_t info[] = { INFO_INIT };
+	int fd = 2;
+
+	asm ("mov %1, %0\n\t"
+			"add $3, %0"
+			: "=r" (fd)
+			: "r" (fd));
+
+	if (ac == 2)
 	{
-		if (getline(&line, &i, stdin) == -1)
+		fd = open(av[1], O_RDONLY);
+		if (fd == -1)
 		{
-			printf("\n");
-			break;
+			if (errno == EACCES)
+				exit(126);
+			if (errno == ENOENT)
+			{
+				_eputs(av[0]);
+				_eputs(": 0: Can't open ");
+				_eputs(av[1]);
+				_eputchar('\n');
+				_eputchar(BUF_FLUSH);
+				exit(127);
+			}
+			return (EXIT_FAILURE);
 		}
-		args = tokenStore(line, dls);
-		if (args == NULL)
-			return (1);
-		command = args[0];
-		check(command, name, args);
-		for (idx = 0; args[idx] != NULL; idx++)
-		{
-			free(args[idx]);
-		}
-		free(args);
-		printf("($) ");
+		info->readfd = fd;
 	}
-	free(line);
-	return (0);
+	populate_env_list(info);
+	read_history(info);
+	hsh(info, av);
+	return (EXIT_SUCCESS);
 }

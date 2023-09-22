@@ -21,4 +21,3 @@ Group members: Ruhinda Roderick and Sunday Godwin
 13. Implement the alias built in command
 14. Handle the variables replacement, $? variable and the $$ variable
 15. Handle comments (#)
-16. 
